@@ -1,4 +1,5 @@
 import { k } from "./kaboomCtx";
+import { scaleFactor } from "./constants";
 
 k.loadSprite("spritesheet", "./spritesheet.png", {
   sliceX: 39,
@@ -12,3 +13,62 @@ k.loadSprite("spritesheet", "./spritesheet.png", {
     "walk-up": { from: 1014, to: 1017, loop: true, speed: 8 },
   }
 });
+
+// to later use it just by key map
+k.loadSprite("map", "./map.png");
+
+k.setBackground(k.Color.fromHex("#311047"));
+
+k.scene("main", async () => {
+  const mapData = await (await fetch("./map.json")).json()
+  const layers = mapData.layers;
+
+  // doesn't show, add shows
+  const map = k.make([
+    k.sprite("map"),
+    k.pos(0),
+    k.scale(scaleFactor)
+  ]);
+
+  const player = k.make([
+    k.sprite("spridesheet", { anim: "idle-down" }),
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10) }),
+    k.body(),
+    k.anchor("center"),
+    k.scale(scaleFactor),
+    {
+      speed: 250,
+      direction: "down",
+      isInDialogue: false,
+    },
+    "player", 
+  ]);
+
+  for (const layer of layers) {
+    if (layer.name === "boundaries") {
+      for (const boundary of layer.objects) {
+        map.add([
+          k.area({
+            shape: new k.Rect(k.vec2(0), 
+            boundary.width, boundary.height)
+          }),
+          k.body({ isStatic: true }),
+          k.pos(boundary.x, boundary.y),
+          boundary.name,
+        ]);
+
+        if (boundary.name) {
+          player.onCollide(boundary.name, () => {
+            player.isInDialogue = true;
+            // display the dialogue
+            // TODO
+          })
+        }
+      }
+    }
+  }
+
+});
+
+// what is the default scene
+k.go("main");
