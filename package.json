@@ -1,19 +1,22 @@
 {
-  "name": "game-portfolio",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "typescript": "~5.6.2",
-    "vite": "^6.0.5"
-  },
-  "dependencies": {
-    "kaboom": "^3000.1.17",
-    "terser": "^5.37.0"
-  }
+	"name": "game-portfolio",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"fix-lint": "npx @biomejs/biome check --write .",
+		"check-lint": "npx @biomejs/biome check ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"typescript": "~5.6.2",
+		"vite": "^6.0.5"
+	},
+	"dependencies": {
+		"kaboom": "^3000.1.17",
+		"terser": "^5.37.0"
+	}
 }
