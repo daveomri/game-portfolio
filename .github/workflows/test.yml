@@ -16,5 +16,3 @@ jobs:
 
       - name: Run ESLint
         run: npm run check-lint
-
-

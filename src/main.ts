@@ -69,10 +69,9 @@ k.scene("main", async () => {
 					player.onCollide(boundary.name, () => {
 						player.isInDialogue = true;
 						// display the dialogue
-						displayDialogue(
-							dialogueData[boundary.name],
-							() => { player.isInDialogue = false },
-						);
+						displayDialogue(dialogueData[boundary.name], () => {
+							player.isInDialogue = false;
+						});
 					});
 				}
 			}
@@ -144,7 +143,6 @@ k.scene("main", async () => {
 			player.flipX = true;
 			if (player.curAnim() !== "walk-side") player.play("walk-side");
 			player.direction = "left";
-			return;
 		}
 	});
 
