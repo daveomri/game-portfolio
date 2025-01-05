@@ -1,6 +1,6 @@
 import type { KaboomCtx } from "kaboom";
 
-export function displayDialogue(text: string, onDisplayEnd: () => {}) {
+export function displayDialogue(text: string, onDisplayEnd: () => void) {
 	const dialogueUI = document.getElementById("textbox-container");
 	const dialogue = document.getElementById("dialogue");
 
