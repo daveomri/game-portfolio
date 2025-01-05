@@ -1,17 +1,21 @@
 import type { KaboomCtx } from "kaboom";
 
-export function displayDialogue(text: string, onDisplayEnd: () => {}) {
+export function displayDialogue(text: string, onDisplayEnd: () => void) {
 	const dialogueUI = document.getElementById("textbox-container");
 	const dialogue = document.getElementById("dialogue");
 
-	if (dialogueUI) dialogueUI!.style.display = "block";
+	if (!dialogue || !dialogueUI) {
+		throw new DOMException("Error: unable to locate needed DOM elements.");
+	}
+
+	dialogueUI.style.display = "block";
 
 	let index = 0;
 	let currentText = "";
 	const intervalRef = setInterval(() => {
 		if (index < text.length) {
 			currentText += text[index];
-			dialogue!.innerHTML = currentText;
+			dialogue.innerHTML = currentText;
 			index++;
 			return;
 		}
@@ -23,8 +27,8 @@ export function displayDialogue(text: string, onDisplayEnd: () => {}) {
 
 	function onCloseBtnClick() {
 		onDisplayEnd();
-		if (dialogueUI) dialogueUI!.style.display = "none";
-		dialogue!.innerHTML = "";
+		if (dialogueUI) dialogueUI.style.display = "none";
+		if (dialogue) dialogue.innerHTML = "";
 		clearInterval(intervalRef);
 		closeBtn?.removeEventListener("click", onCloseBtnClick);
 	}

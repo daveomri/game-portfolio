@@ -1,4 +1,4 @@
-name: Game Portfolio Project
+name: gpp-test
 
 on:
   pull_request:
@@ -16,5 +16,3 @@ jobs:
 
       - name: Run ESLint
         run: npm run check-lint
-
-        
