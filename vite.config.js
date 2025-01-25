@@ -4,5 +4,5 @@ export default defineConfig({
 	base: "/game-portfolio/",
 	build: {
 		minify: "terser",
-	}, 
+	},
 });
