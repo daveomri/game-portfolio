@@ -1,10 +1,12 @@
 import { defineConfig } from "vite";
-import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
 	base: "/game-portfolio/",
 	build: {
 		minify: "terser",
 	},
-	plugins: [vue()],
+	terserOptions: {
+		compress: true,
+		mangle: true,
+	}
 });
